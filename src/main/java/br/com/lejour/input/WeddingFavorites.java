@@ -1,4 +1,4 @@
-package br.com.lejour.model;
+package br.com.lejour.input;
 
 public class WeddingFavorites {
 
