@@ -1,12 +1,21 @@
 package br.com.lejour.input;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class WeddingFavorites {
 
+    @JsonProperty("wedding_id")
     private int weddingId;
+    @JsonProperty("vendor_id")
     private int vendorId;
+    private int qty;
 
 
     //Constructors
+
+
+    public WeddingFavorites() {}
+
     public WeddingFavorites(int weddingId, int vendorId) {
         this.weddingId = weddingId;
         this.vendorId = vendorId;
@@ -27,5 +36,9 @@ public class WeddingFavorites {
 
     public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
+    }
+
+    public int getQty() {
+        return qty;
     }
 }

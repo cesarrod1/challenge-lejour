@@ -1,16 +1,27 @@
 package br.com.lejour.input;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Invoice {
 
+    @JsonProperty("ID")
     private int id;
+    @JsonProperty("WEDDING_ID")
     private int weddingId;
+    @JsonProperty("VENDOR_ID")
     private int vendorId;
+    @JsonProperty("AMOUNT")
     private int amount;
+    @JsonProperty("VENDOR_AMOUNT")
     private int vendorAmount;
-    private boolean accepted;
+    @JsonProperty("ACCEPTED")
+    private String accepted;
 
     // Constructors
-    public Invoice(int id, int weddingId, int vendorId, int amount, int vendorAmount, boolean accepted) {
+
+    public Invoice(){}
+
+    public Invoice(int id, int weddingId, int vendorId, int amount, int vendorAmount, String accepted) {
         this.id = id;
         this.weddingId = weddingId;
         this.vendorId = vendorId;
@@ -60,11 +71,13 @@ public class Invoice {
         this.vendorAmount = vendorAmount;
     }
 
-    public boolean isAccepted() {
+    public String isAccepted() {
         return accepted;
     }
 
-    public void setAccepted(boolean accepted) {
+    public void setAccepted(String accepted) {
         this.accepted = accepted;
     }
+
+
 }

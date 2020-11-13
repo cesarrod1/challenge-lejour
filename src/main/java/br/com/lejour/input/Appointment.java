@@ -1,61 +1,55 @@
 package br.com.lejour.input;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Appointment {
 
+    @JsonProperty("ID")
     private int id;
+    @JsonProperty("WEDDING_ID")
     private int weddingId;
+    @JsonProperty("VENDOR_ID")
     private int vendorId;
+    @JsonProperty("STATUS")
     private String status;
+    @JsonProperty("VENDOR_CATEGORY")
     private String vendorCategory;
 
     // Constructors
+
+
+    public Appointment() {
+    }
+
     public Appointment(int id, int weddingId, int vendorId, String status, String vendorCategory) {
         this.id = id;
         this.weddingId = weddingId;
         this.vendorId = vendorId;
         this.status = status;
         this.vendorCategory = vendorCategory;
+
+
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getWeddingId() {
         return weddingId;
     }
 
-    public void setWeddingId(int weddingId) {
-        this.weddingId = weddingId;
-    }
-
     public int getVendorId() {
         return vendorId;
-    }
-
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getVendorCategory() {
         return vendorCategory;
     }
-
-    public void setVendorCategory(String vendorCategory) {
-        this.vendorCategory = vendorCategory;
-    }
 }
+
 

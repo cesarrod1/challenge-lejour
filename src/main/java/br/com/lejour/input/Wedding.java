@@ -1,16 +1,26 @@
 package br.com.lejour.input;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Wedding {
 
+    @JsonProperty("ID")
     private int id;
+    @JsonProperty("OWNER_ID")
     private int ownerId;
+    @JsonProperty("BUGDET")
     private int budget;
+    @JsonProperty("WEDDING_DATE")
     private String weddingDate;
+    @JsonProperty("NUMBER_OF_GUESTS")
     private int numberOfGuests;
+    @JsonProperty("STYLE")
     private String style;
 
 
     //Constructors
+    public Wedding(){}
+
     public Wedding(int id, int ownerId, int budget, String weddingDate, int numberOfGuests, String style) {
         this.id = id;
         this.ownerId = ownerId;
