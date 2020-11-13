@@ -39,7 +39,7 @@ public class UserController {
         return ResponseEntity.ok(outputUserDashboard.getTotalUser());
     }
 
-    @GetMapping("/appointmentstatuscount")
+    @GetMapping("/appointmentstatuscount") // Contagem dos Status de Appointment
     public ResponseEntity StatusEntity(){
         RestTemplate restTemplate = new RestTemplate();
         Appointment[] forObject = restTemplate.getForObject(Foo.APPOINTMENT.getUrl(), Appointment[].class);
@@ -49,7 +49,7 @@ public class UserController {
         return ResponseEntity.ok(collect);
     }
 
-    @GetMapping("/appointmentcategorycount")
+    @GetMapping("/appointmentcategorycount") // Contagem das categorias de Appointment
     public ResponseEntity VendorCategoryEntity(){
         RestTemplate restTemplate = new RestTemplate();
         Appointment[] forObject = restTemplate.getForObject(Foo.APPOINTMENT.getUrl(), Appointment[].class);
@@ -59,7 +59,7 @@ public class UserController {
         return ResponseEntity.ok(collect);
     }
 
-    @GetMapping("/favoritevendorcount")
+    @GetMapping("/favoritevendorcount") // TOP fornecedores favoritados
     public ResponseEntity FavoriteVentorEntity(){
         WeddingFavorites[] forObject = restTemplate.getForObject(Foo.WEDDING_FAVORITES.getUrl(), WeddingFavorites[].class);
         Map<Integer, Long> collect = Arrays.stream(forObject).collect(
@@ -69,7 +69,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/invoiceacceptedcount")
+    @GetMapping("/invoiceacceptedcount") // TOP contratos aceitos
     public ResponseEntity InvoiceAcceptedEntity() {
         Invoice[] forObject = restTemplate.getForObject(Foo.INVOICE.getUrl(), Invoice[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
@@ -77,7 +77,7 @@ public class UserController {
 
         return ResponseEntity.ok(collect);
     }
-    @GetMapping("/weddingstylecount")
+    @GetMapping("/weddingstylecount") // Tipos de casamentos preferidos
     public ResponseEntity WeddingStyle() {
         Wedding[] forObject = restTemplate.getForObject(Foo.WEDDING.getUrl(), Wedding[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
