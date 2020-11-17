@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/appointmentstatuscount") // Contagem dos Status de Appointment
-    public ResponseEntity StatusEntity(){
+    public ResponseEntity StatusEntity() {
         RestTemplate restTemplate = new RestTemplate();
         Appointment[] forObject = restTemplate.getForObject(Foo.APPOINTMENT.getUrl(), Appointment[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/appointmentcategorycount") // Contagem das categorias de Appointment
-    public ResponseEntity VendorCategoryEntity(){
+    public ResponseEntity VendorCategoryEntity() {
         RestTemplate restTemplate = new RestTemplate();
         Appointment[] forObject = restTemplate.getForObject(Foo.APPOINTMENT.getUrl(), Appointment[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/favoritevendorcount") // TOP fornecedores favoritados
-    public ResponseEntity FavoriteVentorEntity(){
+    public ResponseEntity FavoriteVentorEntity() {
         WeddingFavorites[] forObject = restTemplate.getForObject(Foo.WEDDING_FAVORITES.getUrl(), WeddingFavorites[].class);
         Map<Integer, Long> collect = Arrays.stream(forObject).collect(
                 Collectors.groupingBy(WeddingFavorites::getVendorId, Collectors.counting()));
@@ -69,7 +69,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/invoiceacceptedcount") // TOP contratos aceitos
+    @GetMapping("/invoiceacceptedcount") // TOP contratos aceitos x Cancelados
     public ResponseEntity InvoiceAcceptedEntity() {
         Invoice[] forObject = restTemplate.getForObject(Foo.INVOICE.getUrl(), Invoice[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
@@ -77,6 +77,7 @@ public class UserController {
 
         return ResponseEntity.ok(collect);
     }
+
     @GetMapping("/weddingstylecount") // Tipos de casamentos preferidos
     public ResponseEntity WeddingStyle() {
         Wedding[] forObject = restTemplate.getForObject(Foo.WEDDING.getUrl(), Wedding[].class);
@@ -85,4 +86,15 @@ public class UserController {
 
         return ResponseEntity.ok(collect);
     }
+
+    @GetMapping("/topvendorcount") // TOP Fornecedores contratados.
+    public ResponseEntity Vendor() {
+        Invoice[] forObject = restTemplate.getForObject(Foo.INVOICE.getUrl(), Invoice[].class);
+        Map<Integer, Long> collect = Arrays.stream(forObject).collect(
+                Collectors.groupingBy(Invoice::getVendorId, Collectors.counting()));
+
+        return ResponseEntity.ok(collect);
+    }
+
+
 }
