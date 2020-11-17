@@ -20,28 +20,27 @@ import java.util.stream.Collectors;
 public class UserController {
 
     @Autowired
-    public RestTemplate restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
 
-    @GetMapping("/usertest")
-    public ResponseEntity UserEntity() {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Object[]> forEntity = restTemplate.getForEntity(Foo.USER.getUrl(), Object[].class);
-        Object[] body = forEntity.getBody();
-        return ResponseEntity.ok(body);
-    }
-
+    /**
+     * Contagem total de usuários.
+     * @return
+     */
     @GetMapping("/usercount")
     public ResponseEntity UserDashboardEntity() {
-        RestTemplate restTemplate = new RestTemplate();
         User[] forObject = restTemplate.getForObject(Foo.USER.getUrl(), User[].class);
         long count = Arrays.stream(forObject).map(User::getId).count();
         OutputUserDashboard outputUserDashboard = new OutputUserDashboard(count);
         return ResponseEntity.ok(outputUserDashboard.getTotalUser());
     }
 
+    /**
+     * Contagem dos status de visita, que podem ser:
+     * CREATED, CONFIRMED, VISITED, CANCELED
+     * @return
+     */
     @GetMapping("/appointmentstatuscount") // Contagem dos Status de Appointment
     public ResponseEntity StatusEntity() {
-        RestTemplate restTemplate = new RestTemplate();
         Appointment[] forObject = restTemplate.getForObject(Foo.APPOINTMENT.getUrl(), Appointment[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
                 Collectors.groupingBy(Appointment::getStatus, Collectors.counting()));
@@ -49,9 +48,12 @@ public class UserController {
         return ResponseEntity.ok(collect);
     }
 
-    @GetMapping("/appointmentcategorycount") // Contagem das categorias de Appointment
+    /**
+     * Ranking das categorias de fornecedores mais contratados
+     * @return
+     */
+    @GetMapping("/appointmentcategorycount")
     public ResponseEntity VendorCategoryEntity() {
-        RestTemplate restTemplate = new RestTemplate();
         Appointment[] forObject = restTemplate.getForObject(Foo.APPOINTMENT.getUrl(), Appointment[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
                 Collectors.groupingBy(Appointment::getVendorCategory, Collectors.counting()));
@@ -59,6 +61,10 @@ public class UserController {
         return ResponseEntity.ok(collect);
     }
 
+    /**
+     * Ranking dos fornecedores mais favoritados
+     * @return
+     */
     @GetMapping("/favoritevendorcount") // TOP fornecedores favoritados
     public ResponseEntity FavoriteVentorEntity() {
         WeddingFavorites[] forObject = restTemplate.getForObject(Foo.WEDDING_FAVORITES.getUrl(), WeddingFavorites[].class);
@@ -69,6 +75,10 @@ public class UserController {
 
     }
 
+    /**
+     * Contratos Aceitos (TRUE) e Contratos rejeitados (FALSE)
+     * @return
+     */
     @GetMapping("/invoiceacceptedcount") // TOP contratos aceitos x Cancelados
     public ResponseEntity InvoiceAcceptedEntity() {
         Invoice[] forObject = restTemplate.getForObject(Foo.INVOICE.getUrl(), Invoice[].class);
@@ -87,6 +97,10 @@ public class UserController {
         return ResponseEntity.ok(collect);
     }
 
+    /**
+     * Ranking dos fornecedores contratados
+     * @return
+     */
     @GetMapping("/topvendorcount") // TOP Fornecedores contratados.
     public ResponseEntity Vendor() {
         Invoice[] forObject = restTemplate.getForObject(Foo.INVOICE.getUrl(), Invoice[].class);
@@ -95,6 +109,5 @@ public class UserController {
 
         return ResponseEntity.ok(collect);
     }
-
 
 }
