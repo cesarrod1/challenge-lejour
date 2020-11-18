@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @CrossOrigin
 public class UserController {
@@ -71,7 +72,6 @@ public class UserController {
                 Collectors.groupingBy(WeddingFavorites::getVendorId, Collectors.counting()));
 
         return ResponseEntity.ok(collect);
-
     }
 
     /**
