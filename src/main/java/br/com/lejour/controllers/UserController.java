@@ -6,10 +6,7 @@ import br.com.lejour.output.OutputUserDashboard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -17,6 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -26,6 +24,7 @@ public class UserController {
      * Contagem total de usuários.
      * @return
      */
+    @CrossOrigin
     @GetMapping("/usercount")
     public ResponseEntity UserDashboardEntity() {
         User[] forObject = restTemplate.getForObject(Foo.USER.getUrl(), User[].class);
@@ -39,12 +38,12 @@ public class UserController {
      * CREATED, CONFIRMED, VISITED, CANCELED
      * @return
      */
+    @CrossOrigin
     @GetMapping("/appointmentstatuscount") // Contagem dos Status de Appointment
     public ResponseEntity StatusEntity() {
         Appointment[] forObject = restTemplate.getForObject(Foo.APPOINTMENT.getUrl(), Appointment[].class);
         Map<String, Long> collect = Arrays.stream(forObject).collect(
                 Collectors.groupingBy(Appointment::getStatus, Collectors.counting()));
-
         return ResponseEntity.ok(collect);
     }
 
@@ -79,6 +78,7 @@ public class UserController {
      * Contratos Aceitos (TRUE) e Contratos rejeitados (FALSE)
      * @return
      */
+    @CrossOrigin
     @GetMapping("/invoiceacceptedcount") // TOP contratos aceitos x Cancelados
     public ResponseEntity InvoiceAcceptedEntity() {
         Invoice[] forObject = restTemplate.getForObject(Foo.INVOICE.getUrl(), Invoice[].class);
@@ -91,10 +91,10 @@ public class UserController {
     @GetMapping("/weddingstylecount") // Tipos de casamentos preferidos
     public ResponseEntity WeddingStyle() {
         Wedding[] forObject = restTemplate.getForObject(Foo.WEDDING.getUrl(), Wedding[].class);
-        Map<String, Long> collect = Arrays.stream(forObject).collect(
-                Collectors.groupingBy(Wedding::getStyle, Collectors.counting()));
+//        Map<String, Long> collect = Arrays.stream(forObject).collect(
+//                Collectors.groupingBy(Wedding::getStyle, Collectors.counting()));
 
-        return ResponseEntity.ok(collect);
+        return ResponseEntity.ok(forObject);
     }
 
     /**
